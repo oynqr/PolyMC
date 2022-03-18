@@ -614,6 +614,8 @@ SET(LAUNCHER_SOURCES
     # GUI - windows
     ui/GuiUtil.h
     ui/GuiUtil.cpp
+    ui/Rainbow.h
+    ui/Rainbow.cpp
     ui/ColorCache.h
     ui/ColorCache.cpp
     ui/MainWindow.h
@@ -941,7 +943,6 @@ target_link_libraries(Launcher_logic
     Launcher_iconfix
     QuaZip::QuaZip
     hoedown
-    PolyMC_rainbow
     LocalPeer
 )
 

@@ -260,7 +260,6 @@ if (FORCE_BUNDLED_QUAZIP)
     set(QUAZIP_INSTALL 0)
     add_subdirectory(libraries/quazip) # zip manipulation library
 endif()
-add_subdirectory(libraries/rainbow) # Qt extension for colors
 add_subdirectory(libraries/iconfix) # fork of Qt's QIcon loader
 add_subdirectory(libraries/LocalPeer) # fork of a library from Qt solutions
 add_subdirectory(libraries/classparser) # class parser library
