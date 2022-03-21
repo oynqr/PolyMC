@@ -25,12 +25,8 @@ jobs:
             app_image: true
 
           - os: windows-2022
-            name: "Windows-i686"
-            msystem: mingw32
-
-          - os: windows-2022
             name: "Windows-x86_64"
-            msystem: mingw64
+            msystem: ucrt64
 
           - os: macos-11
             qt_version: 5.12.12
