@@ -22,6 +22,10 @@ set(gp_cmd_paths ${gp_cmd_paths}
  "@CMAKE_GP_CMD_PATHS@"
 )
 
+if(WIN32)
+    include(InstallRequiredSystemLibraries)
+endif()
+
 include(BundleUtilities)
 fixup_bundle("@APPS@" "${QTPLUGINS}" "@DIRS@")
 
