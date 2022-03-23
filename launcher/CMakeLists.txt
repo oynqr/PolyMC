@@ -990,7 +990,7 @@ install(TARGETS ${Launcher_Name}
 #### The bundle mess! ####
 # Bundle utilities are used to complete the portable packages - they add all the libraries that would otherwise be missing on the target system.
 # NOTE: it seems that this absolutely has to be here, and nowhere else.
-if(INSTALL_BUNDLE STREQUAL "full")
+if(INSTALL_BUNDLE STREQUAL "full" AND NOT (${QT_TARGET_TYPE} STREQUAL "STATIC_LIBRARY"))
     # Add qt.conf - this makes Qt stop looking for things outside the bundle
     install(
         CODE "file(WRITE \"\${CMAKE_INSTALL_PREFIX}/${RESOURCES_DEST_DIR}/qt.conf\" \" \")"

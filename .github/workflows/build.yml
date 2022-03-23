@@ -80,7 +80,7 @@ jobs:
             toolchain:p
             cmake:p
             ninja:p
-            qt5:p
+            qt5-static:p
 
       - name: Set short version
         shell: bash
@@ -265,20 +265,6 @@ jobs:
         with:
           name: PolyMC-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
           path: PolyMC-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
-
-      - name: Copy OpenSSL libs on Windows x86
-        if: runner.os == 'Windows' && matrix.msystem == 'mingw32'
-        shell: msys2 {0}
-        run: |
-          cp /mingw32/bin/libcrypto-1_1.dll ${{ env.INSTALL_DIR }}/
-          cp /mingw32/bin/libssl-1_1.dll ${{ env.INSTALL_DIR }}/
-
-      - name: Copy OpenSSL libs on Windows x86_64
-        if: runner.os == 'Windows' && matrix.msystem == 'mingw64'
-        shell: msys2 {0}
-        run: |
-          cp /mingw64/bin/libcrypto-1_1-x64.dll ${{ env.INSTALL_DIR }}/
-          cp /mingw64/bin/libssl-1_1-x64.dll ${{ env.INSTALL_DIR }}/
 
       - name: Upload package for Windows
         if: runner.os == 'Windows'

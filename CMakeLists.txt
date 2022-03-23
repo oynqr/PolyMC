@@ -142,6 +142,8 @@ if (Qt5_POSITION_INDEPENDENT_CODE)
     SET(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 
+get_target_property(QT_TARGET_TYPE Qt5::Core TYPE)
+
 ####################################### Program Info #######################################
 
 set(Launcher_APP_BINARY_NAME "polymc" CACHE STRING "Name of the Launcher binary")
