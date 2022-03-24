@@ -82,6 +82,11 @@ jobs:
             ninja:p
             qt5-static:p
 
+      - name: Clean msys2 cache to free space
+        if: runner.os == 'Windows'
+        shell: msys2 {0}
+        run: pacman -Scc --noconfirm
+
       - name: Set short version
         shell: bash
         run: |
