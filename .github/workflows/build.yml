@@ -77,7 +77,7 @@ jobs:
           install: >-
             git
           pacboy: >-
-            toolchain:p
+            gcc:p
             cmake:p
             ninja:p
             qt5-static:p
