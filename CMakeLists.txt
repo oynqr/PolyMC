@@ -144,6 +144,11 @@ endif()
 
 get_target_property(QT_TARGET_TYPE Qt5::Core TYPE)
 
+if(WIN32 AND ${QT_TARGET_TYPE} STREQUAL "STATIC_LIBRARY")
+    set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+endif()
+
 ####################################### Program Info #######################################
 
 set(Launcher_APP_BINARY_NAME "polymc" CACHE STRING "Name of the Launcher binary")

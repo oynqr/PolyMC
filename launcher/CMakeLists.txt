@@ -967,7 +967,13 @@ target_link_libraries(Launcher_logic
 target_link_libraries(Launcher_logic)
 
 add_executable(${Launcher_Name} MACOSX_BUNDLE WIN32 main.cpp ${LAUNCHER_RCS})
+
 target_link_libraries(${Launcher_Name} Launcher_logic)
+
+if(WIN32 AND ${QT_TARGET_TYPE} STREQUAL "STATIC_LIBRARY")
+    set_target_properties(${Launcher_Name} PROPERTIES LINK_SEARCH_START_STATIC 1)
+    set_target_properties(${Launcher_Name} PROPERTIES LINK_SEARCH_END_STATIC 1)
+endif()
 
 if(DEFINED Launcher_APP_BINARY_NAME)
     set_target_properties(${Launcher_Name} PROPERTIES OUTPUT_NAME "${Launcher_APP_BINARY_NAME}")
@@ -997,77 +1003,79 @@ if(INSTALL_BUNDLE STREQUAL "full")
         COMPONENT Runtime
     )
     # Bundle plugins
-    if((CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo") AND NOT (${QT_TARGET_TYPE} STREQUAL "STATIC_LIBRARY"))
-        # Image formats
-        install(
-            DIRECTORY "${QT_PLUGINS_DIR}/imageformats"
-            DESTINATION ${PLUGIN_DEST_DIR}
-            COMPONENT Runtime
-            REGEX "tga|tiff|mng" EXCLUDE
-        )
-        # Icon engines
-        install(
-            DIRECTORY "${QT_PLUGINS_DIR}/iconengines"
-            DESTINATION ${PLUGIN_DEST_DIR}
-            COMPONENT Runtime
-            REGEX "fontawesome" EXCLUDE
-        )
-        # Platform plugins
-        install(
-            DIRECTORY "${QT_PLUGINS_DIR}/platforms"
-            DESTINATION ${PLUGIN_DEST_DIR}
-            COMPONENT Runtime
-            REGEX "minimal|linuxfb|offscreen" EXCLUDE
-        )
-        # Style plugins
-        if(EXISTS "${QT_PLUGINS_DIR}/styles")
+    if(NOT ${QT_TARGET_TYPE} STREQUAL "STATIC_LIBRARY")
+        if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+            # Image formats
             install(
-                DIRECTORY "${QT_PLUGINS_DIR}/styles"
+                DIRECTORY "${QT_PLUGINS_DIR}/imageformats"
                 DESTINATION ${PLUGIN_DEST_DIR}
                 COMPONENT Runtime
+                REGEX "tga|tiff|mng" EXCLUDE
             )
-        endif()
-    else()
-        # Image formats
-        install(
-            DIRECTORY "${QT_PLUGINS_DIR}/imageformats"
-            DESTINATION ${PLUGIN_DEST_DIR}
-            COMPONENT Runtime
-            REGEX "tga|tiff|mng" EXCLUDE
-            REGEX "d\\." EXCLUDE
-            REGEX "_debug\\." EXCLUDE
-            REGEX "\\.dSYM" EXCLUDE
-        )
-        # Icon engines
-        install(
-            DIRECTORY "${QT_PLUGINS_DIR}/iconengines"
-            DESTINATION ${PLUGIN_DEST_DIR}
-            COMPONENT Runtime
-            REGEX "fontawesome" EXCLUDE
-            REGEX "d\\." EXCLUDE
-            REGEX "_debug\\." EXCLUDE
-            REGEX "\\.dSYM" EXCLUDE
-        )
-        # Platform plugins
-        install(
-            DIRECTORY "${QT_PLUGINS_DIR}/platforms"
-            DESTINATION ${PLUGIN_DEST_DIR}
-            COMPONENT Runtime
-            REGEX "minimal|linuxfb|offscreen" EXCLUDE
-            REGEX "d\\." EXCLUDE
-            REGEX "_debug\\." EXCLUDE
-            REGEX "\\.dSYM" EXCLUDE
-        )
-        # Style plugins
-        if(EXISTS "${QT_PLUGINS_DIR}/styles")
+            # Icon engines
             install(
-                DIRECTORY "${QT_PLUGINS_DIR}/styles"
+                DIRECTORY "${QT_PLUGINS_DIR}/iconengines"
                 DESTINATION ${PLUGIN_DEST_DIR}
                 COMPONENT Runtime
+                REGEX "fontawesome" EXCLUDE
+            )
+            # Platform plugins
+            install(
+                DIRECTORY "${QT_PLUGINS_DIR}/platforms"
+                DESTINATION ${PLUGIN_DEST_DIR}
+                COMPONENT Runtime
+                REGEX "minimal|linuxfb|offscreen" EXCLUDE
+            )
+            # Style plugins
+            if(EXISTS "${QT_PLUGINS_DIR}/styles")
+                install(
+                    DIRECTORY "${QT_PLUGINS_DIR}/styles"
+                    DESTINATION ${PLUGIN_DEST_DIR}
+                    COMPONENT Runtime
+                )
+            endif()
+        else()
+            # Image formats
+            install(
+                DIRECTORY "${QT_PLUGINS_DIR}/imageformats"
+                DESTINATION ${PLUGIN_DEST_DIR}
+                COMPONENT Runtime
+                REGEX "tga|tiff|mng" EXCLUDE
                 REGEX "d\\." EXCLUDE
                 REGEX "_debug\\." EXCLUDE
                 REGEX "\\.dSYM" EXCLUDE
             )
+            # Icon engines
+            install(
+                DIRECTORY "${QT_PLUGINS_DIR}/iconengines"
+                DESTINATION ${PLUGIN_DEST_DIR}
+                COMPONENT Runtime
+                REGEX "fontawesome" EXCLUDE
+                REGEX "d\\." EXCLUDE
+                REGEX "_debug\\." EXCLUDE
+                REGEX "\\.dSYM" EXCLUDE
+            )
+            # Platform plugins
+            install(
+                DIRECTORY "${QT_PLUGINS_DIR}/platforms"
+                DESTINATION ${PLUGIN_DEST_DIR}
+                COMPONENT Runtime
+                REGEX "minimal|linuxfb|offscreen" EXCLUDE
+                REGEX "d\\." EXCLUDE
+                REGEX "_debug\\." EXCLUDE
+                REGEX "\\.dSYM" EXCLUDE
+            )
+            # Style plugins
+            if(EXISTS "${QT_PLUGINS_DIR}/styles")
+                install(
+                    DIRECTORY "${QT_PLUGINS_DIR}/styles"
+                    DESTINATION ${PLUGIN_DEST_DIR}
+                    COMPONENT Runtime
+                    REGEX "d\\." EXCLUDE
+                    REGEX "_debug\\." EXCLUDE
+                    REGEX "\\.dSYM" EXCLUDE
+                )
+            endif()
         endif()
     endif()
     configure_file(
