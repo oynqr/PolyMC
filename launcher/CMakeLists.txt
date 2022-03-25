@@ -559,6 +559,8 @@ add_unit_test(Index
 
 ################################ COMPILE ################################
 
+message(STATUS "CMAKE_FIND_LIBRARY_SUFFIXES: ${CMAKE_FIND_LIBRARY_SUFFIXES}")
+
 # we need zlib
 find_package(ZLIB REQUIRED)
 
