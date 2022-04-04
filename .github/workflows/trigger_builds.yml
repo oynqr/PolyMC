@@ -24,7 +24,7 @@ on:
 jobs:
 
   build_debug:
-    name: Build Debug
+    name: Build RelWithDebInfo
     uses: ./.github/workflows/build.yml
     with:
-      build_type: Debug
+      build_type: RelWithDebInfo
