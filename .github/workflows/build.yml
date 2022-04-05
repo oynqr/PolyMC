@@ -80,6 +80,9 @@ jobs:
             gcc:p
             cmake:p
             ninja:p
+            openssl:p
+            zlib:p
+            zstd:p
             qt5-static:p
 
       - name: Clean msys2 cache to free space
